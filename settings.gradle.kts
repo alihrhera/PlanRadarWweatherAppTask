@@ -26,4 +26,5 @@ include(":core")
 include(":data")
 include(":data:local_db")
 include(":data:network")
+include(":features")
  
