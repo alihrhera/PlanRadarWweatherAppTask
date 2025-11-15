@@ -27,4 +27,6 @@ include(":data")
 include(":data:local_db")
 include(":data:network")
 include(":features")
- 
+include(":features:cities")
+include(":features:history")
+include(":features:cities")

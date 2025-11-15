@@ -8,7 +8,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Cache
 import okhttp3.OkHttpClient
-import okhttp3.internal.cache.CacheInterceptor
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -54,7 +53,6 @@ object NetworkModule {
     @Singleton
     internal fun provideOkhttpClient(
         httpLoggingInterceptor: HttpLoggingInterceptor,
-        cacheInterceptor: CacheInterceptor,
         authKeyInterceptor: AuthKeyInterceptor,
         cache: Cache,
     ): OkHttpClient {
@@ -63,7 +61,6 @@ object NetworkModule {
             connectTimeout(CONNECTION_TIMEOUT.toLong(), TimeUnit.SECONDS)
             readTimeout(READ_TIMEOUT.toLong(), TimeUnit.SECONDS)
             writeTimeout(WRITE_TIMEOUT.toLong(), TimeUnit.SECONDS)
-            addNetworkInterceptor(cacheInterceptor)
             addNetworkInterceptor(authKeyInterceptor)
             if(BuildConfig.DEBUG) addInterceptor(httpLoggingInterceptor)
         }.build()

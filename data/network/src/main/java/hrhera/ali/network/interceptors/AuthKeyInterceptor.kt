@@ -3,8 +3,9 @@ package hrhera.ali.network.interceptors
 import hrhera.ali.network.KeysProvider
 import okhttp3.Interceptor
 import okhttp3.Response
+import javax.inject.Inject
 
-class AuthKeyInterceptor() : Interceptor {
+class AuthKeyInterceptor @Inject constructor() : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
         val originalUrl = originalRequest.url

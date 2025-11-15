@@ -9,9 +9,10 @@ import hrhera.ali.mapper.toEntity
 import hrhera.ali.mapper.toWeatherModel
 import hrhera.ali.network.service.ApiService
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 
-class WeatherRepositoryImpl(
+class WeatherRepositoryImpl @Inject constructor(
     private val weatherHistoryDao: WeatherHistoryDao,
     private val apiService: ApiService
 ) : WeatherRepository {

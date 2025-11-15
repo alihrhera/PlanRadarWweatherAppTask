@@ -16,6 +16,9 @@
             <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/data/local_db" />
             <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/data/network" />
             <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/domain" />
+            <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/features" />
+            <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/features/cities" />
+            <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/features/history" />
           </set>
         </option>
       </GradleProjectSettings>
@@ -32,6 +35,9 @@
             <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/data/local_db" />
             <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/data/network" />
             <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/domain" />
+            <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/features" />
+            <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/features/cities" />
+            <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/features/history" />
           </set>
         </option>
       </GradleProjectSettings>

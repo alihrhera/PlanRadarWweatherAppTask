@@ -20,5 +20,5 @@ inline fun <T> buildTask(
     .onStart {
         emit(ResultSource.Loading)
     }.catch {
-        emit(ResultSource.Error(message = ""))
+        emit(ResultSource.Error(message = it.message ?: "Unknown Error"))
     }

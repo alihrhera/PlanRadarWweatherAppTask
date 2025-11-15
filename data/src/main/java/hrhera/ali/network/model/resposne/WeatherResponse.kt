@@ -15,6 +15,7 @@ class WeatherResponseData(
     @SerializedName("base") val base: String,
     @SerializedName("clouds") val clouds: CloudsDTO,
     @SerializedName("cod") val cod: Int,
+    @SerializedName("message") val message: String?,
     @SerializedName("coord") val cooRd: CoordDTO,
     @SerializedName("dt") val dt: Int,
     @SerializedName("main") val main: MainDTO,
