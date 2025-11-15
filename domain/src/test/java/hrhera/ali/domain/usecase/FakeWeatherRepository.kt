@@ -34,15 +34,4 @@ class FakeWeatherRepository : WeatherRepository {
                 )
             }
         }
-
-    private val _weatherHistoryFlow = MutableStateFlow<ResultSource<List<Weather>>>(
-        ResultSource.Loading
-    )
-
-    override suspend fun observeWeatherHistory(): Flow<ResultSource<List<Weather>>> {
-        return _weatherHistoryFlow
-    }
-    suspend fun updateWeather(newWeather: List<Weather>) {
-        _weatherHistoryFlow.emit(ResultSource.Success(newWeather))
-    }
 }

@@ -18,8 +18,8 @@ class FakeCitiesRepository : CitiesRepository {
         )
     }
 
-    override suspend fun observeCities(): Flow<ResultSource<List<City>>> {
-
+    override fun observeCities(): Flow<ResultSource<List<City>>> {
+        TODO()
     }
 
     private val cities = mutableSetOf<City>()

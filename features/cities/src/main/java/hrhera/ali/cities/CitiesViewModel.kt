@@ -3,8 +3,10 @@ package hrhera.ali.cities
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hrhera.ali.core.BaseViewModel
 import hrhera.ali.core.ResultSource
+import hrhera.ali.domain.models.City
 import hrhera.ali.domain.usecase.GetCitiesUseCase
 import hrhera.ali.domain.usecase.GetCityWeatherUseCase
+import hrhera.ali.domain.usecase.ObserveCitiesUseCase
 import kotlinx.coroutines.delay
 import javax.inject.Inject
 
@@ -12,6 +14,7 @@ import javax.inject.Inject
 class CitiesViewModel @Inject constructor(
     private val getCitiesUseCase: GetCitiesUseCase,
     private val getCityWeatherUsecase: GetCityWeatherUseCase,
+    private val observeCitiesUseCase: ObserveCitiesUseCase,
 ) : BaseViewModel<CityUiStat, CitiesScreenEvents>(CityUiStat()) {
     override fun processAction(
         oldState: CityUiStat, action: CitiesScreenEvents
@@ -30,7 +33,11 @@ class CitiesViewModel @Inject constructor(
             }
 
             is CitiesScreenEvents.AutoObserve -> {
-                updateState { oldState.copy(isAutoObserved = !oldState.isAutoObserved) }
+                val isAutoObserved = oldState.isAutoObserved
+                updateState { oldState.copy(isAutoObserved = !isAutoObserved) }
+                if (uiState.value.isAutoObserved) {
+                    observeCitiesUseCase(uiState.value)
+                }
             }
 
             is CitiesScreenEvents.LoadData -> loadCities(oldState)
@@ -57,9 +64,37 @@ class CitiesViewModel @Inject constructor(
                             oldState.copy(isLoading = true, error = "")
                         }
                     }
+
                     is ResultSource.Success -> {
                         updateState {
                             oldState.copy(isLoading = false, cities = it.data)
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+    fun observeCitiesUseCase(oldState: CityUiStat) {
+        launchTask {
+            observeCitiesUseCase().collect {
+                when (it) {
+                    is ResultSource.Error -> {
+                        oldState.copy(isLoading = false, error = it.message)
+                    }
+
+                    is ResultSource.Loading -> {
+                        updateState {
+                            oldState.copy(isLoading = true, error = "")
+                        }
+                    }
+
+                    is ResultSource.Success -> {
+                        if (oldState.isAutoObserved) {
+                            updateState {
+                                oldState.copy(isLoading = false, cities = it.data)
+                            }
                         }
                     }
                 }
@@ -86,10 +121,12 @@ class CitiesViewModel @Inject constructor(
 
                     is ResultSource.Success -> {
                         updateState {
-                            oldState.copy(searchLoading = false)
+                            oldState.copy(
+                                searchLoading = false,
+                                moveToCity = City(name = cityName, history = it.data),
+                                showAddCityBottomSheet = false
+                            )
                         }
-                        delay(200)
-                        emitAction(CitiesScreenEvents.DismissAddCityBottomSheet)
                     }
                 }
             }

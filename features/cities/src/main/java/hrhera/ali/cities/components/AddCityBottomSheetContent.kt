@@ -1,6 +1,7 @@
 package hrhera.ali.cities.components
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -63,20 +64,22 @@ fun AddCityBottomSheetContent(
                 if (cityName.isBlank()) {
                     Text("Please enter a city name")
                 }
-            }
-        )
+            })
 
         Spacer(modifier = Modifier.height(32.dp))
-        if (isLoaderVisible)
+        if (isLoaderVisible) Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
             CircularProgressIndicator()
+        }
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.End,
             verticalAlignment = Alignment.CenterVertically
         ) {
             TextButton(
-                onClick = onCancelClick,
-                colors = ButtonDefaults.textButtonColors(
+                onClick = onCancelClick, colors = ButtonDefaults.textButtonColors(
                     contentColor = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             ) {

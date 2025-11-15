@@ -3,6 +3,7 @@ package hrhera.ali.repository
 import hrhera.ali.core.ResultSource
 import hrhera.ali.core.buildTask
 import hrhera.ali.core.defaultDispatcher
+import hrhera.ali.core.errorHandling
 import hrhera.ali.domain.models.City
 import hrhera.ali.domain.repository.CitiesRepository
 import hrhera.ali.local_db.dao.WeatherHistoryDao
@@ -32,7 +33,7 @@ class CitiesRepositoryImpl @Inject constructor(
                 emit(ResultSource.Loading)
             }
             .catch { e ->
-                emit(ResultSource.Error(message = e.message ?: "Unknown error"))
+                emit(ResultSource.Error(message = errorHandling(e)))
             }
             .flowOn(defaultDispatcher)
     }
