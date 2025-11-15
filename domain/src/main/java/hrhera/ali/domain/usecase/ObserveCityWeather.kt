@@ -3,10 +3,8 @@ package hrhera.ali.domain.usecase
 import hrhera.ali.domain.repository.CitiesRepository
 import javax.inject.Inject
 
-class GetCitiesUseCase @Inject constructor(
+class ObserveCityWeather @Inject constructor(
     private val citiesRepository: CitiesRepository
 ) {
-
-    suspend operator fun invoke() = citiesRepository.getCities()
-
+    operator fun invoke() = citiesRepository.observeCities()
 }

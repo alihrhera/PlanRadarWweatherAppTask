@@ -56,7 +56,6 @@ dependencies {
 
     api(libs.androidx.room.runtime)
     api(libs.androidx.room.ktx)
-    implementation(libs.androidx.room.testing.android)
     ksp(libs.androidx.room.compiler)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
@@ -66,6 +65,7 @@ dependencies {
 
     androidTestImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.androidx.room.testing)
+    androidTestImplementation(libs.androidx.room.testing.android)
 
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
