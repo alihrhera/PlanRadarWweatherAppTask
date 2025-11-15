@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
@@ -10,6 +11,11 @@
           <set>
             <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp" />
             <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/app" />
+            <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/core" />
+            <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/data" />
+            <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/data/local_db" />
+            <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/data/network" />
+            <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/domain" />
           </set>
         </option>
       </GradleProjectSettings>
@@ -21,6 +27,11 @@
           <set>
             <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp" />
             <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/app" />
+            <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/core" />
+            <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/data" />
+            <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/data/local_db" />
+            <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/data/network" />
+            <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/domain" />
           </set>
         </option>
       </GradleProjectSettings>

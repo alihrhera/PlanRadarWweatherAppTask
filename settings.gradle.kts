@@ -21,4 +21,9 @@ dependencyResolutionManagement {
 
 rootProject.name = "Plan Radar weather App"
 include(":app")
+include(":domain")
+include(":core")
+include(":data")
+include(":data:local_db")
+include(":data:network")
  
