@@ -10,8 +10,9 @@ data class Weather(
     val icon: String,
     val time: String = "",
     val date: String = "",
-){
-    companion object{
+    val id: Long
+) {
+    companion object {
         val EMPTY = Weather(
             description = "",
             tempCelsius = "",
@@ -20,6 +21,7 @@ data class Weather(
             cityName = "",
             dateTime = "",
             icon = "",
+            id = -1
         )
     }
 }

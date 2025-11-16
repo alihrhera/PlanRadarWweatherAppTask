@@ -21,7 +21,8 @@ fun WeatherEntity.toWeatherModel(): Weather {
         humidity = humidity.humidityFormat(),
         dateTime = timestamp.formatDateTime(),
         date = timestamp.formatDate(),
-        time = timestamp.formatTime()
+        time = timestamp.formatTime(),
+        id = id
     )
 }
 
