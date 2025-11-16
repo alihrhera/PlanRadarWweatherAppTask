@@ -78,7 +78,7 @@ private fun ScreenContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(paddingValues = innerPadding)
-                .padding(horizontal = 16.dp),
+                .padding(horizontal = 24.dp, vertical = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             CityTitle(uiState.isAutoObserved) {
@@ -86,7 +86,11 @@ private fun ScreenContent(
                     CitiesScreenEvents.AutoObserve
                 )
             }
-            Box {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(top = 16.dp)
+            ) {
                 LazyColumn {
                     items(uiState.cities.size) {
                         CityItem(uiState.cities[it].name) { cityName ->

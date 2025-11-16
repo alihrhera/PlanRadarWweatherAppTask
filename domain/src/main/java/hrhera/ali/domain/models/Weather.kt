@@ -10,18 +10,4 @@ data class Weather(
     val icon: String,
     val time: String = "",
     val date: String = "",
-) {
-    companion object {
-        fun empty() = Weather(
-            description = "",
-            tempCelsius = "",
-            humidity = "",
-            windSpeed = "",
-            cityName = "",
-            dateTime = "",
-            icon = "",
-            time = "",
-            date = "",
-        )
-    }
-}
+)
