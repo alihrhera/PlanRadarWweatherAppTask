@@ -1,4 +1,4 @@
-package hrhera.ali.cityc
+package hrhera.ali.cities
 
 import org.junit.Test
 

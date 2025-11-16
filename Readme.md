@@ -52,5 +52,9 @@ architecture** for scalability, maintainability, and clean separation of concern
 - [x] **Offline-first** approach using Room and DataStore
 - [x] Type-safe networking with **Retrofit + Gson**
 - [x] Dependency management with **Hilt**
-- [ ] Built-in **CI/CD** pipeline for continuous integration and testing
 - [x] Clean, maintainable, and well-documented codebase
+
+## 🛠️ In Development Stack
+
+- [ ] 🧪 UI Testing
+- [ ] 🚀 Built-in **CI/CD** pipeline for continuous integration and testing
