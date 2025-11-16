@@ -19,6 +19,8 @@
             <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/features" />
             <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/features/cities" />
             <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/features/history" />
+            <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/features/malware_or_debug" />
+            <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/features/weather_details" />
           </set>
         </option>
       </GradleProjectSettings>
@@ -38,6 +40,8 @@
             <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/features" />
             <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/features/cities" />
             <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/features/history" />
+            <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/features/malware_or_debug" />
+            <option value="/mnt/sdc2/running_projects/plan_radar_task_14-11-25/mobile/PlanRadarweatherApp/features/weather_details" />
           </set>
         </option>
       </GradleProjectSettings>

@@ -30,4 +30,5 @@ include(":features")
 include(":features:cities")
 include(":features:history")
 include(":features:weather_details")
+include(":features:malware_or_debug")
  
