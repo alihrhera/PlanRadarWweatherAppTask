@@ -9,7 +9,7 @@ import androidx.navigation.navArgument
 import hrhera.ali.history.HistoryScreenRoute
 
 
-const val HISTORY_ROUTE = "/history/{cityName}/{id}"
+private const val HISTORY_ROUTE = "/history/{cityName}"
 const val HISTORY_ROUTE_NAME = "/history"
 fun NavGraphBuilder.historyRoute(
     onMoveToDetails: (Long) -> Unit
@@ -24,9 +24,8 @@ fun NavGraphBuilder.historyRoute(
         )
     ) { backStackEntry ->
         val cityName = backStackEntry.arguments?.getString("cityName")
-        val id = backStackEntry.arguments?.getLong("id")
-        HistoryScreenRoute(cityName = cityName, detailsId = id) {
-            onMoveToDetails(it)
+        HistoryScreenRoute(cityName = cityName) { id ->
+            onMoveToDetails(id)
         }
     }
 }

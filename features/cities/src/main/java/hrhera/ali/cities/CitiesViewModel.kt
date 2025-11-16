@@ -40,12 +40,22 @@ class CitiesViewModel @Inject constructor(
             }
 
             is CitiesScreenEvents.LoadData -> loadCities(oldState)
+            is CitiesScreenEvents.GotoCityHistory -> updateState {
+                oldState.copy(
+                    moveToCity = City(name = action.name, emptyList()),
+                )
+            }
+
             is CitiesScreenEvents.SearchForCity -> {
                 searchForCity(oldState, action.cityName)
             }
 
             is CitiesScreenEvents.DismissAddCityBottomSheet -> {
                 updateState { oldState.copy(showAddCityBottomSheet = false) }
+            }
+
+            is CitiesScreenEvents.FetchWeatherAndMoveToDetails -> {
+                searchForCity(oldState, action.name)
             }
         }
     }

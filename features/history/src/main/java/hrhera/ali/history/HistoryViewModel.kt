@@ -25,6 +25,9 @@ class HistoryViewModel @Inject constructor(
             )
 
             is HistoryActions.OnRefreshFetchWeather -> refreshCityWeather(oldState)
+            is HistoryActions.OnMoveToDetails -> updateState {
+                oldState.copy(detailsId = action.id)
+            }
         }
     }
 

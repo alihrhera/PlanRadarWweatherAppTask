@@ -27,13 +27,14 @@ import hrhera.ali.core.utils.capitalizeWords
 @Composable
 fun CityItem(
     city: String,
-    onClick: (String) -> Unit
+    onMoveToHistory: () -> Unit={},
+    onMoveToDetails: () -> Unit = {}
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
-            .clickable { onClick(city) },
+            .clickable { onMoveToHistory() },
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(
@@ -49,7 +50,7 @@ fun CityItem(
                 imageVector = Icons.Default.LocationCity,
                 contentDescription = city,
                 tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.size(38.dp)
+                modifier = Modifier.size(42.dp)
             )
 
             Spacer(modifier = Modifier.width(12.dp))
@@ -64,7 +65,9 @@ fun CityItem(
                 imageVector = Icons.Default.Info,
                 contentDescription = "$city Info",
                 tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier.size(42.dp).clickable{
+                    onMoveToDetails()
+                }
             )
         }
     }
@@ -73,5 +76,5 @@ fun CityItem(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun CityItemPreview() {
-    CityItem(city = "Home", onClick = {})
+    CityItem(city = "Home", )
 }

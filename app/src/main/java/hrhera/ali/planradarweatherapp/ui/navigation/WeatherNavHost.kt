@@ -18,8 +18,16 @@ fun WeatherNavHost(
         navController = navController,
         startDestination = CITY_ROUT_NAME
     ) {
-        cityScreenRoute { name, detailsId ->
-            navController.navigate("$HISTORY_ROUTE_NAME/$name/$detailsId")
+        cityScreenRoute(
+            onShowHistory = { name ->
+                navController.navigate("$HISTORY_ROUTE_NAME/$name")
+            }
+        ) { name, id ->
+            navController.navigate("$DETAILS_ROUTE_NAME/$id") {
+                popUpTo("$HISTORY_ROUTE_NAME/$name") {
+                    inclusive = true
+                }
+            }
         }
         historyRoute { detailsId ->
             navController.navigate("$DETAILS_ROUTE_NAME/$detailsId")

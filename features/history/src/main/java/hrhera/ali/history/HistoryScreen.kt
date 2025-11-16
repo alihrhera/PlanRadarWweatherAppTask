@@ -26,31 +26,28 @@ import hrhera.ali.history.components.HistoriesList
 @Composable
 fun HistoryScreenRoute(
     cityName: String?,
-    detailsId: Long?,
-    onNavToWeather: (Long) -> Unit,
+    onNavToWeatherDetails: (Long) -> Unit,
 ) {
     val viewModel: HistoryViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
+
     LaunchedEffect(cityName) {
         cityName?.let {
-            viewModel.updateState {
-                this.copy(detailsId = detailsId)
-            }
             viewModel.emitAction(HistoryActions.OnFetchWeather(it))
         }
-
     }
-
-    LaunchedEffect(uiState.detailsId) {
+    LaunchedEffect(key1 = uiState.detailsId) {
         uiState.detailsId?.let {
-            if (it != -1L) {
-                viewModel.updateState { this.copy(detailsId = null) }
-                onNavToWeather(it)
+            if (it > 0) {
+                viewModel.updateState { uiState.copy(detailsId = null) }
+                onNavToWeatherDetails(it)
             }
         }
     }
 
-    ScreenContent(uiState, viewModel, onNavToWeather)
+    ScreenContent(uiState, viewModel) {
+        viewModel.emitAction(HistoryActions.OnMoveToDetails(it))
+    }
 }
 
 @Composable
