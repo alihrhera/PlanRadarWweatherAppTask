@@ -13,10 +13,10 @@ import hrhera.ali.cities.components.CitiesScreenContent
 
 @Composable
 fun CitiesScreen(
+    viewModel: CitiesViewModel = hiltViewModel(),
     onMoveToHistory: (String) -> Unit,
     onMoveToDetails: (String, Long) -> Unit
 ) {
-    val viewModel: CitiesViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
     LoadHistory(viewModel)
     ErrorRender(uiState)
@@ -24,8 +24,6 @@ fun CitiesScreen(
     MoveToDetails(uiState, viewModel, onMoveToDetails)
     AddCityBottomSheet(uiState) { viewModel.emitAction(it) }
     CitiesScreenContent(viewModel, uiState)
-
-
 }
 
 @Composable
