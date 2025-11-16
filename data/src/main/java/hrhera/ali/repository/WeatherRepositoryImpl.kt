@@ -18,21 +18,21 @@ class WeatherRepositoryImpl @Inject constructor(
 ) : WeatherRepository {
     override suspend fun getWeather(city: String): Flow<ResultSource<List<Weather>>> =
         buildTask {
-            fetchOnlineWeatherData(city)
-            weatherHistoryDao.getWeatherHistory(cityName = city)
+            fetchOnlineWeatherData(city.lowercase())
+            weatherHistoryDao.getWeatherHistory(cityName = city.lowercase())
                 .map { it.toWeatherModel() }
         }
 
     private suspend fun fetchOnlineWeatherData(city: String) {
-        val weatherData = apiService.fetchWeather(city)
+        val weatherData = apiService.fetchWeather(city.lowercase())
         weatherHistoryDao.insertWeather(
-            weatherData.toEntity(city)
+            weatherData.toEntity(city.lowercase())
         )
     }
 
     override suspend fun getLocalWeather(city: String): Flow<ResultSource<List<Weather>>> =
         buildTask {
-            weatherHistoryDao.getWeatherHistory(cityName = city)
+            weatherHistoryDao.getWeatherHistory(cityName = city.lowercase())
                 .map { it.toWeatherModel() }
         }
 
@@ -48,7 +48,7 @@ class WeatherRepositoryImpl @Inject constructor(
     ): Flow<ResultSource<List<Weather>>> =
         buildTask {
             weatherHistoryDao.deleteWeatherHistory(id)
-            weatherHistoryDao.getWeatherHistory(cityName = city)
+            weatherHistoryDao.getWeatherHistory(cityName = city.lowercase())
                 .map { it.toWeatherModel() }
         }
 }

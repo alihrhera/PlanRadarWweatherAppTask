@@ -28,10 +28,10 @@ fun WeatherEntity.toWeatherModel(): Weather {
 
 fun WeatherResponseData.toEntity(cityName: String) = WeatherEntity(
     cityName = cityName.lowercase(),
-    icon = weather.firstOrNull()?.icon ?: "",
-    description = weather.firstOrNull()?.description ?: "",
-    windSpeed = wind.speed.toFloat(),
-    temperature = main.temp.toFloat(),
-    humidity = main.humidity.toFloat(),
+    icon = weather?.firstOrNull()?.icon ?: "",
+    description = weather?.firstOrNull()?.description ?: "",
+    windSpeed = wind?.windSpeed?.toFloat()?:0f,
+    temperature = main?.temp?.toFloat()?:0f,
+    humidity = main?.humidity?.toFloat()?:0f,
     timestamp = System.currentTimeMillis()
 )

@@ -6,14 +6,14 @@ import hrhera.ali.core.ResultSource
 import hrhera.ali.domain.models.City
 import hrhera.ali.domain.usecase.GetCitiesUseCase
 import hrhera.ali.domain.usecase.GetCityWeatherUseCase
-import hrhera.ali.domain.usecase.ObserveCitiesUseCase
+import hrhera.ali.domain.usecase.RemoveCityUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class CitiesViewModel @Inject constructor(
     private val getCitiesUseCase: GetCitiesUseCase,
     private val getCityWeatherUsecase: GetCityWeatherUseCase,
-    private val observeCitiesUseCase: ObserveCitiesUseCase,
+    private val removeCityUseCase: RemoveCityUseCase,
 ) : BaseViewModel<CityUiStat, CitiesScreenEvents>(CityUiStat()) {
     override fun processAction(
         oldState: CityUiStat, action: CitiesScreenEvents
@@ -29,14 +29,6 @@ class CitiesViewModel @Inject constructor(
                     )
                 }
 
-            }
-
-            is CitiesScreenEvents.AutoObserve -> {
-                val isAutoObserved = oldState.isAutoObserved
-                updateState { oldState.copy(isAutoObserved = !isAutoObserved) }
-                if (uiState.value.isAutoObserved) {
-                    observeCitiesUseCase(uiState.value)
-                }
             }
 
             is CitiesScreenEvents.LoadData -> loadCities(oldState)
@@ -56,6 +48,36 @@ class CitiesViewModel @Inject constructor(
 
             is CitiesScreenEvents.FetchWeatherAndMoveToDetails -> {
                 searchForCity(oldState, action.name)
+            }
+
+            is CitiesScreenEvents.DeleteCity -> {
+                deleteCity(oldState, action.name)
+            }
+        }
+    }
+
+    private fun deleteCity(oldState: CityUiStat, name: String) {
+        updateState { oldState.copy(deleteCityName = name) }
+        launchTask {
+            removeCityUseCase(name).collect {
+                when (it) {
+                    is ResultSource.Error -> updateState {
+                        uiState.value.copy(
+                            error = it.message,
+                            deleteCityName = null
+                        )
+                    }
+                    ResultSource.Loading -> {}
+                    is ResultSource.Success -> {
+                        updateState {
+                            uiState.value.copy(
+                                cities = it.data,
+                                deleteCityName = null
+                            )
+                        }
+
+                    }
+                }
             }
         }
     }
@@ -84,34 +106,6 @@ class CitiesViewModel @Inject constructor(
 
         }
     }
-
-    fun observeCitiesUseCase(oldState: CityUiStat) {
-        launchTask {
-            observeCitiesUseCase().collect {
-                when (it) {
-                    is ResultSource.Error -> {
-                        oldState.copy(isLoading = false, error = it.message)
-                    }
-
-                    is ResultSource.Loading -> {
-                        updateState {
-                            oldState.copy(isLoading = true, error = "")
-                        }
-                    }
-
-                    is ResultSource.Success -> {
-                        if (oldState.isAutoObserved) {
-                            updateState {
-                                oldState.copy(isLoading = false, cities = it.data)
-                            }
-                        }
-                    }
-                }
-            }
-
-        }
-    }
-
 
     fun searchForCity(oldState: CityUiStat, cityName: String) {
         updateState {

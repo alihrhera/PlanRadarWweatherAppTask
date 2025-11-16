@@ -1,21 +1,19 @@
 package hrhera.ali.local_db.dao
+
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import hrhera.ali.local_db.db.WeatherDatabase
 import hrhera.ali.local_db.entity.WeatherEntity
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.After
-
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-
-import org.junit.Assert.*
-import org.junit.Before
 
 
 @RunWith(AndroidJUnit4::class)
@@ -58,6 +56,24 @@ class WeatherHistoryDaoTest {
 
         assertEquals(1, result.size)
         assertEquals(25.1f, result.first().temperature)
+    }
+
+    @Test
+    fun deleteWeatherHistory_shouldRemoveRecord() = runTest {
+        val weather = WeatherEntity(
+            cityName = "Cairo",
+            icon = "",
+            description = "",
+            temperature = 25.0f,
+            windSpeed = 1f,
+            humidity = 50f
+        )
+        val id = dao.insertWeather(weather)
+
+        dao.deleteWeatherHistory(id)
+
+        val result = dao.getWeatherHistoryDetails(id)
+        assertNull(result)
     }
 
     @Test
@@ -143,79 +159,6 @@ class WeatherHistoryDaoTest {
         assertEquals(2, result.size)
         assertEquals("Alex", result[0].cityName)
         assertEquals("Cairo", result[1].cityName)
-    }
-
-
-
-    @Test
-    fun observeCities_shouldEmitAllCitiesOrderedByTimestampDesc() = runTest {
-        val cairo = WeatherEntity(
-            cityName = "Cairo",
-            icon = "",
-            description = "",
-            temperature = 25.0f,
-            windSpeed = 1f,
-            humidity = 50f,
-        )
-        Thread.sleep(10)
-        val alex = WeatherEntity(
-            cityName = "Alex",
-            icon = "",
-            description = "",
-            temperature = 20.0f,
-            windSpeed = 2f,
-            humidity = 60f,
-        )
-
-        dao.insertWeather(cairo)
-        dao.insertWeather(alex)
-        val result = dao.observeCities().first()
-        assertEquals(2, result.size)
-        assertEquals("Alex", result[0].cityName)
-        assertEquals("Cairo", result[1].cityName)
-    }
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    @Test
-    fun observeCities_shouldEmitUpdatesLive() = runTest {
-        val emissions = mutableListOf<List<WeatherEntity>>()
-
-        val job = launch {
-            dao.observeCities().collect { emissions.add(it) }
-        }
-
-        emissions.firstOrNull() ?: advanceUntilIdle()
-        assertEquals(0, emissions.lastOrNull()?.size ?: 0)
-
-        val cairo = WeatherEntity(
-            cityName = "Cairo",
-            icon = "",
-            description = "",
-            temperature = 25.0f,
-            windSpeed = 1f,
-            humidity = 50f,
-        )
-        dao.insertWeather(cairo)
-
-        val firstEmit = dao.observeCities().first { it.size == 1 }
-        assertEquals(1, firstEmit.size)
-        assertEquals("Cairo", firstEmit[0].cityName)
-
-        val alex = WeatherEntity(
-            cityName = "Alex",
-            icon = "",
-            description = "",
-            temperature = 20.0f,
-            windSpeed = 2f,
-            humidity = 60f,
-        )
-        dao.insertWeather(alex)
-        val secondEmit = dao.observeCities().first { it.size == 2 }
-        assertEquals(2, secondEmit.size)
-        assertEquals("Alex", secondEmit[0].cityName)
-        assertEquals("Cairo", secondEmit[1].cityName)
-
-        job.cancel()
     }
 
     @Test

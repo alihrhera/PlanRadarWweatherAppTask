@@ -7,10 +7,8 @@ sealed class CitiesScreenEvents : UiEvent {
     data class SearchForCity(val cityName: String) : CitiesScreenEvents()
     data object DismissAddCityBottomSheet : CitiesScreenEvents()
     data object LoadData : CitiesScreenEvents()
-    data object AutoObserve : CitiesScreenEvents()
     data class GotoCityHistory(val name: String) : CitiesScreenEvents()
+    data class DeleteCity(val name: String) : CitiesScreenEvents()
     data class FetchWeatherAndMoveToDetails(val name: String) : CitiesScreenEvents()
-
-
 }
 

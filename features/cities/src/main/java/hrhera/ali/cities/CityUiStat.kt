@@ -6,7 +6,7 @@ import hrhera.ali.domain.models.City
 
 data class CityUiStat(
     val isLoading: Boolean = false,
-    val isAutoObserved: Boolean = false,
+    val deleteCityName: String? = null,
     val showAddCityBottomSheet: Boolean = false,
     val cities: List<City> = emptyList(),
     val moveToCity: City? = null,

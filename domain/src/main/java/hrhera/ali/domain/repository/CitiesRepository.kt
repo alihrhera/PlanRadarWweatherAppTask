@@ -7,8 +7,11 @@ import kotlinx.coroutines.flow.Flow
 
 
 interface CitiesRepository {
-    suspend fun getCities():Flow<ResultSource<List<City>>>
-     fun observeCities():Flow<ResultSource<List<City>>>
+    suspend fun getCities(): Flow<ResultSource<List<City>>>
+
+    suspend fun removeCity(name: String): Flow<ResultSource<List<City>>>
+
+
 }
 
 

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,11 +41,7 @@ fun CitiesScreenContent(
                 .padding(horizontal = 24.dp, vertical = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            CityTitle(uiState.isAutoObserved) {
-                viewModel.emitAction(
-                    CitiesScreenEvents.AutoObserve
-                )
-            }
+            CityTitle()
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -55,6 +52,7 @@ fun CitiesScreenContent(
                         val cityName = uiState.cities[index].name
                         CityItem(
                             city = cityName,
+                            isLoading = uiState.deleteCityName == cityName,
                             onMoveToHistory = {
                                 viewModel.emitAction(
                                     CitiesScreenEvents.GotoCityHistory(cityName)
@@ -66,19 +64,26 @@ fun CitiesScreenContent(
                                         cityName
                                     )
                                 )
+                            },
+                            onDeleteCity = {
+                                viewModel.emitAction(
+                                    CitiesScreenEvents.DeleteCity(cityName)
+                                )
                             }
                         )
                     }
                 }
-            }
-            if (uiState.isLoading) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                ) {
+                if (uiState.cities.isEmpty()) {
+                    Text(
+                        text = "No cities found, please add one",
+                        modifier = Modifier.align(Alignment.Center)
+                    )
+                }
+                if (uiState.isLoading) {
                     CircularProgressIndicator()
                 }
             }
+
         }
     }
 }

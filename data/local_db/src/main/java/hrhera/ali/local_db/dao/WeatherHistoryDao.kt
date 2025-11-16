@@ -19,9 +19,6 @@ interface WeatherHistoryDao {
     @Query("SELECT * FROM weather_data ORDER BY timestamp DESC")
     suspend fun getCities(): List<WeatherEntity>
 
-    @Query("SELECT * FROM weather_data ORDER BY timestamp DESC")
-    fun observeCities(): Flow<List<WeatherEntity>>
-
     @Insert
     suspend fun insertWeather(record: WeatherEntity): Long
 
