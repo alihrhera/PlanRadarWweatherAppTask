@@ -5,5 +5,4 @@ import javax.inject.Inject
 
 class GetLocalCityWeatherUseCase @Inject constructor(private val repository: WeatherRepository){
     suspend operator fun invoke(city: String) = repository.getLocalWeather(city)
-
 }
