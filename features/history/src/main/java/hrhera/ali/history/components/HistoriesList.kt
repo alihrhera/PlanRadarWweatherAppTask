@@ -1,4 +1,5 @@
 package hrhera.ali.history.components
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -9,12 +10,14 @@ import androidx.compose.ui.unit.dp
 import hrhera.ali.history.HistoryUiState
 
 @Composable
- fun HistoriesList(
+fun HistoriesList(
     uiState: HistoryUiState,
-    onNavToWeather: (String) -> Unit,
+    onNavToWeather: (Long) -> Unit,
 ) {
     LazyColumn(
-        modifier = Modifier.fillMaxSize().padding(top = 16.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 16.dp),
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         items(
@@ -26,7 +29,7 @@ import hrhera.ali.history.HistoryUiState
             val history = uiState.history[index]
             HistoryItem(
                 weatherEntry = history,
-                onNavToWeather = { onNavToWeather(uiState.name) },
+                onNavToWeather = { onNavToWeather(history.id) },
             )
         }
     }

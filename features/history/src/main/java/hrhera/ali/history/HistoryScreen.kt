@@ -26,23 +26,36 @@ import hrhera.ali.history.components.HistoriesList
 @Composable
 fun HistoryScreenRoute(
     cityName: String?,
-    onNavToWeather: (String) -> Unit,
+    detailsId: Long?,
+    onNavToWeather: (Long) -> Unit,
 ) {
     val viewModel: HistoryViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
     LaunchedEffect(cityName) {
         cityName?.let {
+            viewModel.updateState {
+                this.copy(detailsId = detailsId)
+            }
             viewModel.emitAction(HistoryActions.OnFetchWeather(it))
         }
+
     }
+
+    LaunchedEffect(uiState.detailsId) {
+        uiState.detailsId?.let {
+            if (it != -1L) {
+                viewModel.updateState { this.copy(detailsId = null) }
+                onNavToWeather(it)
+            }
+        }
+    }
+
     ScreenContent(uiState, viewModel, onNavToWeather)
 }
 
 @Composable
 private fun ScreenContent(
-    uiState: HistoryUiState,
-    viewModel: HistoryViewModel,
-    onNavToWeather: (String) -> Unit
+    uiState: HistoryUiState, viewModel: HistoryViewModel, onNavToWeather: (Long) -> Unit
 ) {
     Scaffold { paddingValues ->
         Column(
@@ -68,8 +81,7 @@ private fun ScreenContent(
                 contentAlignment = Alignment.Center
             ) {
                 HistoriesList(
-                    uiState = uiState,
-                    onNavToWeather = onNavToWeather
+                    uiState = uiState, onNavToWeather = onNavToWeather
                 )
                 if (uiState.isLoading) CircularProgressIndicator()
             }

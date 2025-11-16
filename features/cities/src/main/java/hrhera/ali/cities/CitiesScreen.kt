@@ -26,7 +26,7 @@ import hrhera.ali.cities.components.CityTitle
 
 @Composable
 fun CitiesScreen(
-    onMoveToHistory: (String) -> Unit
+    onMoveToHistory: (String, Long?) -> Unit
 ) {
     val viewModel: CitiesViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
@@ -42,12 +42,15 @@ fun CitiesScreen(
 
     LaunchedEffect(uiState.moveToCity) {
         uiState.moveToCity?.let {
+            val name = it.name
+            val id = uiState.detailsId
             viewModel.updateState {
                 uiState.copy(
-                    moveToCity = null
+                    moveToCity = null,
+                    detailsId = null
                 )
             }
-            onMoveToHistory(it.name)
+            onMoveToHistory(name, id)
         }
     }
 
@@ -61,7 +64,7 @@ fun CitiesScreen(
 private fun ScreenContent(
     viewModel: CitiesViewModel,
     uiState: CityUiStat,
-    onMoveToHistory: (String) -> Unit
+    onMoveToHistory: (String, Long?) -> Unit
 ) {
 
     Scaffold(
@@ -94,7 +97,7 @@ private fun ScreenContent(
                 LazyColumn {
                     items(uiState.cities.size) {
                         CityItem(uiState.cities[it].name) { cityName ->
-                            onMoveToHistory(cityName)
+                            onMoveToHistory(cityName, null)
                         }
                     }
                 }

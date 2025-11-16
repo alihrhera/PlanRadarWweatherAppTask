@@ -8,5 +8,6 @@ data class HistoryUiState(
     val isLoading: Boolean = false,
     val isRefresh: Boolean = false,
     val error: String? = null,
+    var detailsId: Long? = null,
     val history: List<Weather> = emptyList()
 ) : UiState

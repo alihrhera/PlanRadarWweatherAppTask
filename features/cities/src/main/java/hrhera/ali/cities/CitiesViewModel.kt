@@ -7,7 +7,6 @@ import hrhera.ali.domain.models.City
 import hrhera.ali.domain.usecase.GetCitiesUseCase
 import hrhera.ali.domain.usecase.GetCityWeatherUseCase
 import hrhera.ali.domain.usecase.ObserveCitiesUseCase
-import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 @HiltViewModel
@@ -112,11 +111,20 @@ class CitiesViewModel @Inject constructor(
             getCityWeatherUsecase(cityName).collect {
                 when (it) {
                     is ResultSource.Error -> updateState {
-                        oldState.copy(searchLoading = false, error = it.message)
+                        oldState.copy(
+                            searchLoading = false,
+                            error = it.message,
+                            moveToCity = null,
+                            detailsId = null
+                        )
                     }
 
                     is ResultSource.Loading -> updateState {
-                        oldState.copy(searchLoading = true)
+                        oldState.copy(
+                            searchLoading = true,
+                            moveToCity = null,
+                            detailsId = null
+                        )
                     }
 
                     is ResultSource.Success -> {
@@ -124,6 +132,7 @@ class CitiesViewModel @Inject constructor(
                             oldState.copy(
                                 searchLoading = false,
                                 moveToCity = City(name = cityName, history = it.data),
+                                detailsId = it.data.firstOrNull()?.id,
                                 showAddCityBottomSheet = false
                             )
                         }

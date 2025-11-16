@@ -3,7 +3,9 @@ package hrhera.ali.planradarweatherapp.ui.navigation
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import hrhera.ali.cities.navigation.CITY_ROUT_NAME
 import hrhera.ali.cities.navigation.cityScreenRoute
+import hrhera.ali.history.navigation.HISTORY_ROUTE_NAME
 import hrhera.ali.history.navigation.historyRoute
 
 @Composable
@@ -12,11 +14,13 @@ fun WeatherNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = "/cities"
+        startDestination = CITY_ROUT_NAME
     ) {
-        cityScreenRoute {
-            navController.navigate("/history/$it")
+        cityScreenRoute { name, detailsId ->
+            navController.navigate("$HISTORY_ROUTE_NAME/$name/$detailsId")
         }
-        historyRoute(navController)
+        historyRoute { detailsId ->
+            navController.navigate("/details/$detailsId")
+        }
     }
 }

@@ -10,6 +10,7 @@ data class CityUiStat(
     val showAddCityBottomSheet: Boolean = false,
     val cities: List<City> = emptyList(),
     val moveToCity: City? = null,
+    val detailsId: Long? = null,
     val searchLoading: Boolean = false,
     val searchQuery: String = "",
     val error: String = ""
