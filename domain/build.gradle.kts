@@ -50,4 +50,6 @@ dependencies {
     androidTestImplementation(libs.kotlin.test)
     testImplementation(libs.kotlin.test)
     testImplementation(libs.turbine)
+    testImplementation(libs.mockk)
+
 }

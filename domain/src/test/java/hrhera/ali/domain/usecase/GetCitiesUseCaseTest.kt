@@ -1,36 +1,73 @@
 package hrhera.ali.domain.usecase
 
-
 import app.cash.turbine.test
 import hrhera.ali.core.ResultSource
 import hrhera.ali.domain.models.City
+import hrhera.ali.domain.repository.CitiesRepository
+import io.mockk.coEvery
+import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
-import kotlin.test.Test
+import org.junit.Before
+import org.junit.Test
 import kotlin.test.assertEquals
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class GetCitiesUseCaseTest {
 
-    private val fakeRepository = FakeCitiesRepository()
-    private val getCitiesUseCase = GetCitiesUseCase(fakeRepository)
+    private lateinit var repository: CitiesRepository
+    private lateinit var useCase: GetCitiesUseCase
+
+    @Before
+    fun setup() {
+        repository = mockk()
+        useCase = GetCitiesUseCase(repository)
+    }
 
     @Test
-    fun `invoke returns loading then success with correct cities`() = runTest {
-        val city1 = City(name = "Cairo")
-        val city2 = City(name = "Alex")
-        fakeRepository.addCity(city1)
-        fakeRepository.addCity(city2)
-        val flow = getCitiesUseCase()
-        flow.test {
-            assertEquals(ResultSource.Loading, awaitItem())
-            val result = awaitItem()
-            assert(result is ResultSource.Success)
-            val list = (result as ResultSource.Success).data
-            assertEquals(2, list.size)
-            assertEquals(city1, list[0])
-            assertEquals(city2, list[1])
+    fun `getCities emits loading then success`() = runTest {
+        val citiesList = listOf(City("Cairo",emptyList()), City("Alexandria",emptyList()))
+        coEvery { repository.getCities() } returns flow {
+            emit(ResultSource.Loading)
+            emit(ResultSource.Success(citiesList))
+        }
+
+        useCase().test {
+            assert(awaitItem() is ResultSource.Loading)
+            val success = awaitItem() as ResultSource.Success
+            assertEquals(2, success.data.size)
+            assertEquals("Cairo", success.data[0].name)
+            assertEquals("Alexandria", success.data[1].name)
             awaitComplete()
+        }
+    }
+
+    @Test
+    fun `getCities emits loading then error`() = runTest {
+        coEvery { repository.getCities() } returns flow {
+            emit(ResultSource.Loading)
+            emit(ResultSource.Error("Network error"))
+        }
+
+        useCase().test {
+            assert(awaitItem() is ResultSource.Loading)
+            val error = awaitItem() as ResultSource.Error
+            assertEquals("Network error", error.message)
+            awaitComplete()
+        }
+    }
+
+    @Test
+    fun `getCities only loading with no further emission`() = runTest {
+        coEvery { repository.getCities() } returns flow {
+            emit(ResultSource.Loading)
+            delay(Long.MAX_VALUE)
+        }
+        useCase().test {
+            assert(awaitItem() is ResultSource.Loading)
+            cancelAndIgnoreRemainingEvents()
         }
     }
 }

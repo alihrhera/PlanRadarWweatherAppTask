@@ -8,4 +8,6 @@ import kotlinx.coroutines.flow.Flow
 interface WeatherRepository {
     suspend fun getWeather(city: String): Flow<ResultSource<List<Weather>>>
     suspend fun getLocalWeather(city: String): Flow<ResultSource<List<Weather>>>
+
+    suspend fun getWeatherHistoryDetails(id: Long): Flow<ResultSource<Weather>>
 }

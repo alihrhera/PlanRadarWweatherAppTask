@@ -218,6 +218,30 @@ class WeatherHistoryDaoTest {
         job.cancel()
     }
 
+    @Test
+    fun getWeatherHistoryDetails_returnsCorrectEntity() = runTest {
+        val weather =WeatherEntity(
+            id = 1L,
+            cityName = "Alex",
+            icon = "",
+            description = "",
+            temperature = 20.0f,
+            windSpeed = 2f,
+            humidity = 60f,
+        )
+
+        dao.insertWeather(weather)
+        val result = dao.getWeatherHistoryDetails(1L)
+        assertNotNull(result)
+        assertEquals(weather.id, result?.id)
+    }
+
+    @Test
+    fun getWeatherHistoryDetails_returnsNullWhenNoEntity() = runTest {
+        val result = dao.getWeatherHistoryDetails(999L)
+        assertNull(result)
+    }
+
 
 }
 

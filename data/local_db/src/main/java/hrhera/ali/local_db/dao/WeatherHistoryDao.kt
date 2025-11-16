@@ -9,8 +9,12 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface WeatherHistoryDao {
 
-    @Query("SELECT * FROM weather_data WHERE cityName = :cityName ORDER BY timestamp ASC")
+    @Query("SELECT * FROM weather_data WHERE cityName = :cityName ORDER BY timestamp DESC")
     suspend fun getWeatherHistory(cityName: String): List<WeatherEntity>
+
+    @Query("SELECT * FROM weather_data WHERE id = :id Limit 1")
+    suspend fun getWeatherHistoryDetails(id: Long): WeatherEntity?
+
 
     @Query("SELECT * FROM weather_data ORDER BY timestamp DESC")
     suspend fun getCities(): List<WeatherEntity>
