@@ -1,11 +1,9 @@
 package hrhera.ali.history
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -22,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import hrhera.ali.core.utils.capitalizeWords
-import hrhera.ali.history.components.HistoryItem
+import hrhera.ali.history.components.HistoriesList
 
 
 @Composable
@@ -37,6 +35,15 @@ fun HistoryScreenRoute(
             viewModel.emitAction(HistoryActions.OnFetchWeather(it))
         }
     }
+    ScreenContent(uiState, viewModel, onNavToWeather)
+}
+
+@Composable
+private fun ScreenContent(
+    uiState: HistoryUiState,
+    viewModel: HistoryViewModel,
+    onNavToWeather: (String) -> Unit
+) {
     Scaffold { paddingValues ->
         Column(
             modifier = Modifier
@@ -71,29 +78,7 @@ fun HistoryScreenRoute(
 }
 
 
-@Composable
-private fun HistoriesList(
-    uiState: HistoryUiState,
-    onNavToWeather: (String) -> Unit,
-) {
-    LazyColumn(
-        modifier = Modifier.fillMaxSize().padding(top = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(4.dp)
-    ) {
-        items(
-            count = uiState.history.size,
-            key = { index ->
-                index
-            }
-        ) { index ->
-            val history = uiState.history[index]
-            HistoryItem(
-                weatherEntry = history,
-                onNavToWeather = { onNavToWeather(uiState.name) },
-            )
-        }
-    }
-}
+
 
 
 
