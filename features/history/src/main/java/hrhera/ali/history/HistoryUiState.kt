@@ -6,8 +6,8 @@ import hrhera.ali.domain.models.Weather
 data class HistoryUiState(
     val name: String = "",
     val isLoading: Boolean = false,
-    val isRefresh: Boolean = false,
     val error: String? = null,
     var detailsId: Long? = null,
-    val history: List<Weather> = emptyList()
+    val history: List<Weather> = emptyList(),
+    val deleteId: Long? = null
 ) : UiState

@@ -1,9 +1,14 @@
 package hrhera.ali.history
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -52,7 +57,9 @@ fun HistoryScreenRoute(
 
 @Composable
 private fun ScreenContent(
-    uiState: HistoryUiState, viewModel: HistoryViewModel, onNavToWeather: (Long) -> Unit
+    uiState: HistoryUiState,
+    viewModel: HistoryViewModel,
+    onNavToWeather: (Long) -> Unit
 ) {
     Scaffold { paddingValues ->
         Column(
@@ -61,26 +68,39 @@ private fun ScreenContent(
                 .padding(paddingValues)
                 .padding(horizontal = 24.dp, vertical = 16.dp)
                 .pullToRefresh(
-                    isRefreshing = uiState.isRefresh,
+                    isRefreshing = uiState.isLoading,
                     onRefresh = {
                         viewModel.emitAction(HistoryActions.OnRefreshFetchWeather)
                     },
-                    enabled = !uiState.isRefresh,
+                    enabled = !uiState.isLoading,
                     state = rememberPullToRefreshState(),
                 ),
         ) {
-            Text(
-                text = uiState.name.capitalizeWords(),
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = uiState.name.capitalizeWords(),
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold,
+                )
+                if (uiState.isLoading) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(24.dp)
+                    )
+                }
+            }
             Box(
                 contentAlignment = Alignment.Center
             ) {
                 HistoriesList(
-                    uiState = uiState, onNavToWeather = onNavToWeather
+                    uiState = uiState,
+                    onNavToWeather = onNavToWeather,
+                    onDeleteItem = {
+                        viewModel.emitAction(HistoryActions.OnDeleteItem(it))
+                    }
                 )
-                if (uiState.isLoading) CircularProgressIndicator()
             }
         }
     }

@@ -28,6 +28,9 @@ interface WeatherHistoryDao {
     @Query("DELETE FROM weather_data WHERE cityName = :cityName")
     suspend fun deleteWeatherHistoryForCity(cityName: String)
 
+    @Query("DELETE FROM weather_data WHERE id = :id")
+    suspend fun deleteWeatherHistory(id: Long)
+
     @Query(
         "SELECT * FROM weather_data WHERE cityName = :cityName ORDER BY timestamp DESC " +
                 "LIMIT 1"

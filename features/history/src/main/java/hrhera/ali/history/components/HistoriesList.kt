@@ -13,6 +13,7 @@ import hrhera.ali.history.HistoryUiState
 fun HistoriesList(
     uiState: HistoryUiState,
     onNavToWeather: (Long) -> Unit,
+    onDeleteItem: (Long) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier
@@ -28,8 +29,10 @@ fun HistoriesList(
         ) { index ->
             val history = uiState.history[index]
             HistoryItem(
+                showLoading = uiState.deleteId == history.id,
                 weatherEntry = history,
                 onNavToWeather = { onNavToWeather(history.id) },
+                onDeleteItem = { onDeleteItem(history.id) }
             )
         }
     }

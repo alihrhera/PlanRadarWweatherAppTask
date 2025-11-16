@@ -10,4 +10,5 @@ interface WeatherRepository {
     suspend fun getLocalWeather(city: String): Flow<ResultSource<List<Weather>>>
 
     suspend fun getWeatherHistoryDetails(id: Long): Flow<ResultSource<Weather>>
+    suspend fun removeWeatherHistoryDetails(id: Long,city: String): Flow<ResultSource<List<Weather>>>
 }

@@ -41,4 +41,14 @@ class WeatherRepositoryImpl @Inject constructor(
         weatherHistoryDao.getWeatherHistoryDetails(id)?.toWeatherModel()
             ?: throw Exception("Item Not found")
     }
+
+    override suspend fun removeWeatherHistoryDetails(
+        id: Long,
+        city: String
+    ): Flow<ResultSource<List<Weather>>> =
+        buildTask {
+            weatherHistoryDao.deleteWeatherHistory(id)
+            weatherHistoryDao.getWeatherHistory(cityName = city)
+                .map { it.toWeatherModel() }
+        }
 }
