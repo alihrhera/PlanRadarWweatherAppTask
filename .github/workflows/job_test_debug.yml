@@ -26,7 +26,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Compile with Full Logs
-        run: ./gradlew :core:network:compileDebugUnitTestKotlin --info --stacktrace
+        run: ./gradlew testDebugUnitTest --info --stacktrace
 
       - name: Run Tests
         run: ./gradlew testDebugUnitTest --continue
