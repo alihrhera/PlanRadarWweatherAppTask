@@ -27,7 +27,7 @@ fun WeatherEntity.toWeatherModel(): Weather {
 }
 
 fun WeatherResponseData.toEntity(cityName: String) = WeatherEntity(
-    cityName = cityName,
+    cityName = cityName.lowercase(),
     icon = weather.firstOrNull()?.icon ?: "",
     description = weather.firstOrNull()?.description ?: "",
     windSpeed = wind.speed.toFloat(),

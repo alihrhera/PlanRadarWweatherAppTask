@@ -7,6 +7,8 @@ import hrhera.ali.cities.navigation.CITY_ROUT_NAME
 import hrhera.ali.cities.navigation.cityScreenRoute
 import hrhera.ali.history.navigation.HISTORY_ROUTE_NAME
 import hrhera.ali.history.navigation.historyRoute
+import hrhera.ali.wether_details.navigation.DETAILS_ROUTE_NAME
+import hrhera.ali.wether_details.navigation.detailsRoute
 
 @Composable
 fun WeatherNavHost(
@@ -20,7 +22,8 @@ fun WeatherNavHost(
             navController.navigate("$HISTORY_ROUTE_NAME/$name/$detailsId")
         }
         historyRoute { detailsId ->
-            navController.navigate("/details/$detailsId")
+            navController.navigate("$DETAILS_ROUTE_NAME/$detailsId")
         }
+        detailsRoute()
     }
 }

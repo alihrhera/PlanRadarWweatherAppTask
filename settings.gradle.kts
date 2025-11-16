@@ -29,3 +29,5 @@ include(":data:network")
 include(":features")
 include(":features:cities")
 include(":features:history")
+include(":features:weather_details")
+ 

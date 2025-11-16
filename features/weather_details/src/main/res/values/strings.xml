@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="status">Status</string>
+    <string name="species">Species</string>
+    <string name="weather_icon">Weather icon</string>
+    <string name="description">Description</string>
+    <string name="humidity">Humidity</string>
+    <string name="windspeed">Wind speed</string>
+    <string name="temperature">Temperature</string>
+    <string name="weather_information_received_on">Weather information %1$s received on \n%2$s</string>
+</resources>

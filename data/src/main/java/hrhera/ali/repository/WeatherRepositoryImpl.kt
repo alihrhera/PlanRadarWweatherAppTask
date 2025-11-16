@@ -36,4 +36,9 @@ class WeatherRepositoryImpl @Inject constructor(
                 .map { it.toWeatherModel() }
         }
 
+    override suspend fun getWeatherHistoryDetails(id: Long):
+            Flow<ResultSource<Weather>> = buildTask {
+        weatherHistoryDao.getWeatherHistoryDetails(id)?.toWeatherModel()
+            ?: throw Exception("Item Not found")
+    }
 }

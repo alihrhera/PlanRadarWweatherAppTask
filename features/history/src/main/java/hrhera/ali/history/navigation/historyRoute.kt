@@ -19,7 +19,7 @@ fun NavGraphBuilder.historyRoute(
         arguments = listOf(
             navArgument("cityName") { type = NavType.StringType },
             navArgument("id") {
-                type = NavType.LongType; nullable = true; defaultValue = null
+                type = NavType.LongType; defaultValue = -1
             }
         )
     ) { backStackEntry ->
