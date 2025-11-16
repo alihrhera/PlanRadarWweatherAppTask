@@ -8,6 +8,8 @@ data class Weather(
     val cityName: String,
     val dateTime: String,
     val icon: String,
+    val time: String = "",
+    val date: String = "",
 ) {
     companion object {
         fun empty() = Weather(
@@ -18,6 +20,8 @@ data class Weather(
             cityName = "",
             dateTime = "",
             icon = "",
+            time = "",
+            date = "",
         )
     }
 }

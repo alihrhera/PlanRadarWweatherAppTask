@@ -18,14 +18,22 @@ class WeatherRepositoryImpl @Inject constructor(
 ) : WeatherRepository {
     override suspend fun getWeather(city: String): Flow<ResultSource<List<Weather>>> =
         buildTask {
-            val weatherData = apiService.fetchWeather(city)
-            weatherHistoryDao.insertWeather(
-                weatherData.toEntity(city)
-            )
-
+            fetchOnlineWeatherData(city)
             weatherHistoryDao.getWeatherHistory(cityName = city)
                 .map { it.toWeatherModel() }
         }
 
+    private suspend fun fetchOnlineWeatherData(city: String) {
+        val weatherData = apiService.fetchWeather(city)
+        weatherHistoryDao.insertWeather(
+            weatherData.toEntity(city)
+        )
+    }
+
+    override suspend fun getLocalWeather(city: String): Flow<ResultSource<List<Weather>>> =
+        buildTask {
+            weatherHistoryDao.getWeatherHistory(cityName = city)
+                .map { it.toWeatherModel() }
+        }
 
 }

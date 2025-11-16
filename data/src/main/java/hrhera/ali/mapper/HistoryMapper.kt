@@ -1,6 +1,8 @@
 package hrhera.ali.mapper
 
+import hrhera.ali.core.utils.formatDate
 import hrhera.ali.core.utils.formatDateTime
+import hrhera.ali.core.utils.formatTime
 import hrhera.ali.core.utils.humidityFormat
 import hrhera.ali.core.utils.windSpeedFormat
 import hrhera.ali.core.utils.toCelsiusFormat
@@ -18,6 +20,8 @@ fun WeatherEntity.toWeatherModel(): Weather {
         tempCelsius = temperature.toCelsiusFormat(),
         humidity = humidity.humidityFormat(),
         dateTime = timestamp.formatDateTime(),
+        date = timestamp.formatDate(),
+        time = timestamp.formatTime()
     )
 }
 

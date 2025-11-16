@@ -56,9 +56,7 @@ class CitiesRepositoryImplTest {
         val emissions = mutableListOf<ResultSource<List<City>>>()
         repository.observeCities().collect { emissions.add(it) }
         assertTrue(emissions[0] is ResultSource.Loading)
-        println("Result =======================")
         println("${emissions[1]} ${fakeEntities.first().timestamp}")
-        println("Result =======================")
         val success = emissions[1] as ResultSource.Success
         assertEquals("Cairo", success.data.first().name)
         verify(exactly = 1) { weatherLocalDb.observeCities() }

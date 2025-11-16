@@ -39,6 +39,18 @@ fun CitiesScreen(
             Toast.makeText(context, uiState.error, Toast.LENGTH_SHORT).show()
         }
     }
+
+    LaunchedEffect(uiState.moveToCity) {
+        uiState.moveToCity?.let {
+            viewModel.updateState {
+                uiState.copy(
+                    moveToCity = null
+                )
+            }
+            onMoveToHistory(it.name)
+        }
+    }
+
     AddCityBottomSheet(uiState) { viewModel.emitAction(it) }
     ScreenContent(viewModel, uiState, onMoveToHistory)
 
