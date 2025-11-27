@@ -7,18 +7,20 @@ import androidx.navigation.navArgument
 import hrhera.ali.wether_details.WeatherDetailsRoute
 
 
-private const val DETAILS_ROUTE = "/details/{id}"
 const val DETAILS_ROUTE_NAME = "/details"
+const val DETAILS_ARGUMENT_ID = "id"
+private const val DETAILS_ROUTE = "/details/{$DETAILS_ARGUMENT_ID}"
+
 fun NavGraphBuilder.detailsRoute() {
     composable(
         route = DETAILS_ROUTE,
         arguments = listOf(
-            navArgument("id") {
+            navArgument(DETAILS_ARGUMENT_ID) {
                 type = NavType.LongType; defaultValue = -1
             }
         )
     ) { backStackEntry ->
-        val id = backStackEntry.arguments?.getLong("id") ?: -1
+        val id = backStackEntry.arguments?.getLong(DETAILS_ARGUMENT_ID) ?: -1
         if (id != -1L) WeatherDetailsRoute(id)
 
     }
