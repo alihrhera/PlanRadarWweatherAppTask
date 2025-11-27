@@ -13,7 +13,8 @@ architecture** for scalability, maintainability, and clean separation of concern
       <img src="res/5.png" alt="Shimmer Effect" width="200"/>
      <img src="res/6.png" alt="Shimmer Effect" width="200"/>
 </p>
-#### 🔒 Security Check
+
+### 🔒 Security Check
      <img src="res/7.png" alt="Shimmer Effect" width="200"/>
 
 ---
