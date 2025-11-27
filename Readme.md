@@ -12,8 +12,9 @@ architecture** for scalability, maintainability, and clean separation of concern
      <img src="res/4.png" alt="Shimmer Effect" width="200"/>
       <img src="res/5.png" alt="Shimmer Effect" width="200"/>
      <img src="res/6.png" alt="Shimmer Effect" width="200"/>
-     <img src="res/7.png" alt="Shimmer Effect" width="200"/>
 </p>
+#### 🔒 Security Check
+     <img src="res/7.png" alt="Shimmer Effect" width="200"/>
 
 ---
 
@@ -54,8 +55,6 @@ architecture** for scalability, maintainability, and clean separation of concern
 - [x] Type-safe networking with **Retrofit + Gson**
 - [x] Dependency management with **Hilt**
 - [x] Clean, maintainable, and well-documented codebase
+- [x]  Security Check for emulator or root detect
+- [x]   Built-in **CI/CD** pipeline for continuous integration and testing
 
-## 🛠️ In Development Stack
-
-- [ ] 🧪 UI Testing
-- [ ] 🚀 Built-in **CI/CD** pipeline for continuous integration and testing
