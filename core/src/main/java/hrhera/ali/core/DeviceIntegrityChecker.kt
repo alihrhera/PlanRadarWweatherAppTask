@@ -1,7 +1,6 @@
 package hrhera.ali.core
 
 import android.content.Context
-import android.util.Log
 import hrhera.ali.core.integrity_check.DebuggingCheck
 import hrhera.ali.core.integrity_check.EmulatorCheck
 import hrhera.ali.core.integrity_check.IntegrityCheck

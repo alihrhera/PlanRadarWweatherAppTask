@@ -1,6 +1,5 @@
 package hrhera.ali.planradarweatherapp.ui.navigation
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -9,7 +8,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import hrhera.ali.cities.navigation.CITY_ROUT_NAME
@@ -17,35 +15,12 @@ import hrhera.ali.cities.navigation.cityScreenRoute
 import hrhera.ali.core.DeviceIntegrityChecker
 import hrhera.ali.history.navigation.HISTORY_ROUTE_NAME
 import hrhera.ali.history.navigation.historyRoute
+import hrhera.ali.malware_or_debug.navigation.DEBUG_ROUTE
 import hrhera.ali.malware_or_debug.navigation.MALWARE_ROUTE
 import hrhera.ali.malware_or_debug.navigation.malwareOrDebugRoute
 import hrhera.ali.planradarweatherapp.BuildConfig
 import hrhera.ali.wether_details.navigation.DETAILS_ROUTE_NAME
 import hrhera.ali.wether_details.navigation.detailsRoute
-
-/*
-@Composable
-fun WeatherNavHost(
-    navController: NavHostController,
-) {
-    val context = LocalContext.current
-    NavHost(
-        navController = navController, startDestination = CITY_ROUT_NAME
-    ) {
-        if (!BuildConfig.DEBUG) {
-            mainRoutes(navController)
-        } else {
-            mainRoutes(navController)
-            malwareOrDebugRoute()
-            DeviceIntegrityChecker.check(context = context, onEmulator = {
-                Log.w("TAG", "WeatherNavHost: $it  $navController", )
-                if (it) navController.navigate(MALWARE_ROUTE)
-            }, onRooted = {
-                if (it) navController.navigate(MALWARE_ROUTE)
-            })
-        }
-    }
-}*/
 
 @Composable
 fun WeatherNavHost(
@@ -63,13 +38,7 @@ fun WeatherNavHost(
         )
     }
 
-    LaunchedEffect(checkResultEmulator, checkResultRoot) {
-        if (BuildConfig.DEBUG && (checkResultEmulator || checkResultRoot)) {
-            navController.navigate(MALWARE_ROUTE) {
-                launchSingleTop = true
-            }
-        }
-    }
+    HandleSecurityRedirects(checkResultEmulator, checkResultRoot, navController)
 
     NavHost(
         navController = navController,
@@ -77,7 +46,26 @@ fun WeatherNavHost(
     ) {
         mainRoutes(navController)
         if (BuildConfig.DEBUG) {
-            malwareOrDebugRoute()
+            malwareOrDebugRoute(navController)
+        }
+    }
+}
+
+@Composable
+private fun HandleSecurityRedirects(
+    checkResultEmulator: Boolean,
+    checkResultRoot: Boolean,
+    navController: NavHostController
+) {
+    LaunchedEffect(checkResultEmulator, checkResultRoot) {
+        if (checkResultEmulator) {
+            navController.navigate(DEBUG_ROUTE) {
+                launchSingleTop = true
+            }
+        } else if (checkResultRoot) {
+            navController.navigate(MALWARE_ROUTE) {
+                launchSingleTop = true
+            }
         }
     }
 }
