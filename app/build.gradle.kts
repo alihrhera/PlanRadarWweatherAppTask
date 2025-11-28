@@ -40,6 +40,12 @@ android {
         compose = true
         buildConfig=true
     }
+
+    packaging {
+        resources {
+            excludes.add("/META-INF/*")
+        }
+    }
 }
 
 dependencies {

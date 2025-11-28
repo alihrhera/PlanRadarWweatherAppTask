@@ -30,10 +30,10 @@ import hrhera.ali.history.components.HistoriesList
 
 @Composable
 fun HistoryScreenRoute(
+    viewModel: HistoryViewModel = hiltViewModel(),
     cityName: String?,
     onNavToWeatherDetails: (Long) -> Unit,
 ) {
-    val viewModel: HistoryViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
 
     LaunchedEffect(cityName) {

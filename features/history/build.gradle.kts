@@ -10,6 +10,12 @@ android {
     namespace = "hrhera.ali.history"
     compileSdk = 36
 
+    packaging {
+        resources {
+            excludes.add("/META-INF/*")
+        }
+    }
+
     defaultConfig {
         minSdk = 24
 
@@ -49,11 +55,11 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation(libs.androidx.material.icons.extended )
+    implementation(libs.androidx.material.icons.extended)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
-    implementation (libs.coil.compose)
+    implementation(libs.coil.compose)
 
     testImplementation(libs.junit)
     testImplementation(libs.androidx.lifecycle.runtime.testing)
@@ -61,6 +67,10 @@ dependencies {
     testImplementation(libs.mockk)
     testImplementation(libs.kotlin.test)
     testImplementation(libs.kotlinx.coroutines.test)
-    androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.ui.test.junit4)
+    androidTestImplementation(libs.mockk.android)
+
+    debugImplementation(libs.ui.tooling)
+    debugImplementation(libs.ui.test.manifest)
 }
