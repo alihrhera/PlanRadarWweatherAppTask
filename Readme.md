@@ -57,6 +57,6 @@ architecture** for scalability, maintainability, and clean separation of concern
 - [x] Type-safe networking with **Retrofit + Gson**
 - [x] Dependency management with **Hilt**
 - [x] Clean, maintainable, and well-documented codebase
-- [x]  Security Check for emulator or root detect
-- [x]   Built-in **CI/CD** pipeline for continuous integration and testing
-
+- [x] Security Check for emulator or root detect
+- [x] Built-in **CI/CD** pipeline for continuous integration and testing
+- [x] Ui testing 
