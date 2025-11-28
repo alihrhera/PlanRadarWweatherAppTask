@@ -57,4 +57,14 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    testImplementation(libs.turbine)
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotlin.test)
+    testImplementation(libs.kotlinx.coroutines.test)
+
+    androidTestImplementation (libs.ui.test.junit4)
+    debugImplementation (libs.ui.tooling)
+    debugImplementation (libs.ui.test.manifest)
+
+
 }

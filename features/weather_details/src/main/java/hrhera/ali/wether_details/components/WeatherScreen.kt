@@ -32,7 +32,16 @@ import hrhera.ali.wether_details.R
 @Composable
 fun WeatherScreen(uiState: DetailsUiState) {
     Column(modifier = Modifier.fillMaxSize()) {
-        Spacer(modifier = Modifier.height(100.dp))
+        Spacer(modifier = Modifier.height(32.dp))
+        if (uiState.errorEntity.isNullOrBlank().not())
+            Text(
+                text = uiState.errorEntity,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                textAlign = TextAlign.Center,
+            )
+        Spacer(modifier = Modifier.height(64.dp))
         Card(
             modifier = Modifier
                 .fillMaxWidth()
